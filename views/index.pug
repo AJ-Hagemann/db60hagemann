@@ -4,3 +4,12 @@ block content
   h1= title
   p Welcome to the greatest show in the world
   button(type="button", class="btn btn-secondary") Press Me
+  div(id="target") Display 
+  script.
+    var client_count = 0;
+    function update(){
+      client_count++;
+      console.log(client_count);
+      document.getElementById("target").innerHTML = "Value now " + client_count;
+    }
+  a(href='player') Player
