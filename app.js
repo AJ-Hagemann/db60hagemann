@@ -4,13 +4,50 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const connectionString =  
+process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString,  
+{useNewUrlParser: true, 
+useUnifiedTopology: true}); 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var playerRouter = require('./routes/player');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
+var player = require("./models/player");
 
 var app = express();
+
+// We can seed the collection if needed on server start 
+async function recreateDB(){ 
+  // Delete everything 
+  await player.deleteMany(); 
+
+  let instance1 = new player({player_name:"Lebron James",  player_team:'Lakers', player_number:6}); 
+  instance1.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("First object saved") 
+  });
+
+  let instance2 = new player({player_name:"Luka Doncic",  player_team:'Mavericks', player_number:77}); 
+  instance2.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Second object saved") 
+  });
+
+  let instance3 = new player({player_name:"Kevin Durant",  player_team:'Nets', player_number:7}); 
+  instance3.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Third object saved") 
+  });
+} 
+
+let reseed = true; 
+if (reseed) { recreateDB();} 
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +64,7 @@ app.use('/users', usersRouter);
 app.use('/player', playerRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource',resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
