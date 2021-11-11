@@ -13,18 +13,18 @@ router.get('/resource', api_controller.api);
 /// Player ROUTES /// 
 
 // POST request for creating a Player.  
-router.post('/resource/player', player_controller.player_create_post); 
+router.post('/player', player_controller.player_create_post); 
 
 // DELETE request to delete Player. 
-router.delete('/resource/player/:id', player_controller.player_delete); 
+router.delete('/player/:id', player_controller.player_delete); 
 
 // PUT request to update Player. 
-router.put('/resource/player/:id', player_controller.player_update_put); 
+router.put('/player/:id', player_controller.player_update_put); 
 
 // GET request for one Player. 
-router.get('/resource/player/:id', player_controller.player_detail); 
+router.get('/player/:id', player_controller.player_detail); 
 
 // GET request for list of all Player items. 
-router.get('/resource/player', player_controller.player_list); 
+router.get('/player', player_controller.player_list); 
 
 module.exports = router;  

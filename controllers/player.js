@@ -36,9 +36,24 @@ exports.player_detail = function(req, res) {
     res.send('NOT IMPLEMENTED: Player detail: ' + req.params.id); 
 }; 
 
-// Handle Player create on POST. 
-exports.player_create_post = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Player create POST'); 
+exports.player_create_post = async function(req, res) { 
+    console.log(req.body) 
+    let document = new player(); 
+    // We are looking for a body, since POST does not have query parameters. 
+    // Even though bodies can be in many different formats, we will be picky 
+    // and require that it be a json object 
+    // {"player_name":"Lebron James", "player_number":6, "player_team":"Lakers"} 
+    document.player_name = req.body.player_name; 
+    document.cost = req.body.player_number; 
+    document.size = req.body.player_team; 
+    try{ 
+        let result = await document.save(); 
+        res.send(result); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    } 
 }; 
 
 // Handle Player delete form on DELETE. 
