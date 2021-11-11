@@ -1,4 +1,30 @@
-var Player = require('../models/player'); 
+var player = require('../models/player'); 
+
+// List of all Costumes 
+exports.player_list = async function(req, res) { 
+    try{ 
+        thePlayers = await player.find(); 
+        res.send(thePlayers); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+};  
+
+// VIEWS 
+// Handle a show all view 
+exports.player_view_all_Page = async function(req, res) { 
+    try{ 
+        thePlayers = await player.find(); 
+        res.render('player', { title: 'Player Search Results', results: thePlayers }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+}; 
+
 
 // List of all Player
 exports.player_list = function(req, res) { 
