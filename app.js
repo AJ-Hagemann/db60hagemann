@@ -26,19 +26,19 @@ async function recreateDB(){
   // Delete everything 
   await player.deleteMany(); 
 
-  let instance1 = new player({player_name:"Lebron James",  player_team:'Lakers', player_number:6}); 
+  let instance1 = new player({player_name:"Joao Felix",  player_team:'Atletico Madrid', player_number:55}); 
   instance1.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("First object saved") 
   });
 
-  let instance2 = new player({player_name:"Luka Doncic",  player_team:'Mavericks', player_number:77}); 
+  let instance2 = new player({player_name:"Christiane Endler",  player_team:'Paris Saint', player_number:99}); 
   instance2.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("Second object saved") 
   });
 
-  let instance3 = new player({player_name:"Kevin Durant",  player_team:'Nets', player_number:7}); 
+  let instance3 = new player({player_name:"Mohamed Salah",  player_team:'Liverpool', player_number:10}); 
   instance3.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("Third object saved") 
