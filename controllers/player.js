@@ -1,6 +1,6 @@
 var player = require('../models/player'); 
 
-// List of all Costumes 
+// List of all players 
 exports.player_list = async function(req, res) { 
     try{ 
         thePlayers = await player.find(); 
@@ -63,7 +63,23 @@ exports.player_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: Player delete DELETE ' + req.params.id); 
 }; 
 
-// Handle Player update form on PUT. 
-exports.player_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Player update PUT' + req.params.id); 
-};  
+//Handle player update form on PUT. 
+exports.player_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await player.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.player_name)  
+               toUpdate.player_name = req.body.player_name; 
+        if(req.body.player_team) toUpdate.player_team = req.body.player_team; 
+        if(req.body.player_number) toUpdate.player_number = req.body.player_number; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
+    } 
+};
