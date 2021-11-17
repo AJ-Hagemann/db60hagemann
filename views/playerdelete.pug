@@ -1,0 +1,53 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+    - let playerid = toShow._id 
+    - let playername = toShow.player_name 
+    - let playerteam = toShow.player_team
+    - let playernumber = toShow.player_number
+    - let actionid = "/resource/player/" + playerid 
+    script let actionid = "#{actionid}" 
+    div 
+      div.row 
+        div(class='playerAttr mr-3') Player ID is: 
+        div #{playerid} 
+      div.row 
+        div(class='playerAttr mr-3') Player Name is: 
+        div #{playername} 
+      div.row 
+        div(class='playerAttr mr-3') Player Team is: 
+        div #{playerteam} 
+      div.row 
+        div(class='costumeAttr mr-3') Player Number is: 
+        div #{playernumber} 
+
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
+
+  script. 
+    function cancel() { 
+      // Go back to the home page for the costume collection 
+      window.location.href='/player' 
+    } 
+  script. 
+    function deleteOnid() { 
+      console.log("starting delete") 
+      // delete first 
+      fetch(actionid, { 
+        method: 'DELETE'      
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Delete succeded") 
+        window.location.href='/player' 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Delete failed " + error ) 
+      }); 
+    }  
