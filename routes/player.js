@@ -6,4 +6,9 @@ var router = express.Router();
 /* GET players */
 router.get('/', player_controllers.player_view_all_Page );
 
+
+/* GET detail player page */ 
+router.get('/detail', player_controllers.player_view_one_Page);
+
+
 module.exports = router;

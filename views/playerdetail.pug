@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  - let playerid = toShow._id 
+  - let playername = toShow.player_name 
+  - let playerteam = toShow.player_team 
+  - let playernumber = toShow.player_number
+  div 
+    div.row 
+      div(class='playerAttr mr-3') Player ID is: 
+      div #{playerid} 
+    div.row 
+      div(class='playerAttr mr-3') Player Name is: 
+      div #{playername} 
+    div.row 
+      div(class='playerAttr mr-3') Player Team is: 
+      div #{playerteam} 
+    div.row 
+      div(class='playerAttr mr-3') Player Number is: 
+      div #{playernumber}  
