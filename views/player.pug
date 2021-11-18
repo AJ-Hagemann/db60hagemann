@@ -2,13 +2,16 @@ extends layout
 
 block content
   h1= title
+  -let items = results;
   div(class="container-fluid")
-    div(class="row")
-      -
-           let stuff = results
-           
-      each ply, index in stuff
-        div(class="col-sm-2") #{ply.player_name}
-        div(class="col-sm-2") #{ply.player_team}
-        div(class="col-sm-2") #{ply.player_number}
+   div(class="row m-1")
+    each item in items  
+      - let destination = `dispatch(\"/player/update?id=${item._id}\")` 
+        div(class="row-sm-2", class="m-1") Item #{item.player_name}(#{item.player_team}) is #{item.player_number} 
+        button.btn( class="btn-primary ml-1", onclick= destination) Update 
+
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
 
