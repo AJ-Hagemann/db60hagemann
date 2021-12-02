@@ -22,13 +22,13 @@ router.get('/', player_controllers.player_view_all_Page );
 router.get('/detail', player_controllers.player_view_one_Page);
 
 /* GET create plyer page */ 
-router.get('/create', player_controllers.player_create_Page); 
+router.get('/create', secured, player_controllers.player_create_Page);  
 
 /* GET update player page */ 
 router.get('/update', secured, player_controllers.player_update_Page); 
 
 /* GET create player page */ 
-router.get('/delete', player_controllers.player_delete_Page); 
+router.get('/delete', secured, player_controllers.player_delete_Page);
 
 
 
