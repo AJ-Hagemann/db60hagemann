@@ -3,6 +3,17 @@ const player_controllers= require('../controllers/player');
 var router = express.Router();
 
 
+
+const secured = (req, res, next) => { 
+    if (req.user){ 
+      return next(); 
+    } 
+    req.session.returnTo = req.originalUrl;
+    res.redirect("/login"); 
+  } 
+
+
+
 /* GET players */
 router.get('/', player_controllers.player_view_all_Page );
 
@@ -10,11 +21,11 @@ router.get('/', player_controllers.player_view_all_Page );
 /* GET detail player page */ 
 router.get('/detail', player_controllers.player_view_one_Page);
 
-/* GET create costume page */ 
+/* GET create plyer page */ 
 router.get('/create', player_controllers.player_create_Page); 
 
-/* GET create update page */ 
-router.get('/update', player_controllers.player_update_Page); 
+/* GET update player page */ 
+router.get('/update', secured, player_controllers.player_update_Page); 
 
 /* GET create player page */ 
 router.get('/delete', player_controllers.player_delete_Page); 
