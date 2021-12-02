@@ -2,13 +2,21 @@ extends layout
 
 block content
   h1= title
-  -let items = results;
+    -let items = results;
   div(class="container-fluid")
-   div(class="row m-1")
+    div(class="row m-1")
+    -let create = `dispatch(\"/player/create\")`
+    button.btn(class="btn-primary ml-1", onclick = create) create
     each item in items  
       - let destination = `dispatch(\"/player/update?id=${item._id}\")` 
+      - let newDelete = `dispatch(\"/player/delete?id${item._id}\")`
+      - let detail = `dispatch(\"/player/detail?id${item._id}\")`
         div(class="row-sm-2", class="m-1") Item #{item.player_name}(#{item.player_team}) is #{item.player_number} 
         button.btn( class="btn-primary ml-1", onclick= destination) Update 
+        button.btn( class="btn-primary ml-1", onclick= newDelete) Delete
+        button.btn( class="btn-primary ml-1", onclick= detail) Detail
+
+
 
   script. 
     function dispatch(path){ 
